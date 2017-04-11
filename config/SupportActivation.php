@@ -10,7 +10,7 @@
  * @link     http://www.maiconpinto.com.br
  */
 
-namespace Support\config;
+namespace Support\Config;
 
 class SupportActivation
 {
@@ -86,8 +86,7 @@ class SupportActivation
         // ACL: remove ACOs with permissions
         // $controller->Croogo->removeAco('Example'); // ExampleController ACO and it's actions will be removed
 
-        $this->Link = ClassRegistry::init('Menus.Link');
-        debug($this->Link);die();
+        /*$this->Link = ClassRegistry::init('Menus.Link');
         // Main menu: delete Example link
         $link = $this->Link->find('first', [
             'joins' => [
@@ -113,7 +112,7 @@ class SupportActivation
         ]);
         if (isset($link['Link']['id'])) {
             $this->Link->delete($link['Link']['id']);
-        }
+        }*/
     }
 
 }
