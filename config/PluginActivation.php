@@ -12,7 +12,9 @@
 
 namespace Support\Config;
 
-class SupportActivation
+use Cake\ORM\TableRegistry;
+
+class PluginActivation
 {
 
 /**
@@ -38,19 +40,18 @@ class SupportActivation
         // $controller->Croogo->addAco('Support/admin_index'); // ExampleController::admin_index()
         // $controller->Croogo->addAco('Support/index', ['registered', 'public']); // ExampleController::index()
 
-        $this->Link = ClassRegistry::init('Menus.Link');
+        $Links = TableRegistry::get('Croogo/Menus.Links');
 
-        // Main menu: add a link to Support
-        $mainMenu = $this->Link->Menu->findByAlias('main');
-        $this->Link->Behaviors->attach('Tree', [
+        // Main menu: add an Example link
+        $mainMenu = $Links->Menus->findByAlias('main')->first();
+        $Links->addBehavior('Tree', [
             'scope' => [
-                'Link.menu_id' => $mainMenu['Menu']['id'],
+                'Links.menu_id' => $mainMenu->id,
             ],
         ]);
-        $this->Link->create();
-        $this->Link->save([
+        $Links->save($Links->newEntity([
             // Menu in which the link should go
-            'menu_id' => $mainMenu['Menu']['id'],
+            'menu_id' => $mainMenu->id,
             // Link caption
             'title' => 'Support',
             // The link
@@ -61,7 +62,7 @@ class SupportActivation
             'class' => 'support',
             // Roles which link is visible. Empty string means visible to all
             'visibility_roles' => '["1","2","3"]',
-        ]);
+        ]));
     }
 
 /**
@@ -86,9 +87,9 @@ class SupportActivation
         // ACL: remove ACOs with permissions
         // $controller->Croogo->removeAco('Example'); // ExampleController ACO and it's actions will be removed
 
-        /*$this->Link = ClassRegistry::init('Menus.Link');
+        /*$Links = ClassRegistry::init('Menus.Link');
         // Main menu: delete Example link
-        $link = $this->Link->find('first', [
+        $link = $Links->find('first', [
             'joins' => [
                 [
                     'table' => 'menus',
@@ -105,13 +106,13 @@ class SupportActivation
         if (empty($link)) {
             return;
         }
-        $this->Link->Behaviors->attach('Tree', [
+        $Links->Behaviors->attach('Tree', [
             'scope' => [
                 'Link.menu_id' => $link['Link']['menu_id'],
             ],
         ]);
         if (isset($link['Link']['id'])) {
-            $this->Link->delete($link['Link']['id']);
+            $Links->delete($link['Link']['id']);
         }*/
     }
 
