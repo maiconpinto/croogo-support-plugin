@@ -36,33 +36,7 @@ class PluginActivation
  */
     public function onActivation(&$controller)
     {
-        // ACL: set ACOs with permissions
-        // $controller->Croogo->addAco('Support/admin_index'); // ExampleController::admin_index()
-        // $controller->Croogo->addAco('Support/index', ['registered', 'public']); // ExampleController::index()
-
-        $Links = TableRegistry::get('Croogo/Menus.Links');
-
-        // Main menu: add an Example link
-        $mainMenu = $Links->Menus->findByAlias('main')->first();
-        $Links->addBehavior('Tree', [
-            'scope' => [
-                'Links.menu_id' => $mainMenu->id,
-            ],
-        ]);
-        $Links->save($Links->newEntity([
-            // Menu in which the link should go
-            'menu_id' => $mainMenu->id,
-            // Link caption
-            'title' => 'Support',
-            // The link
-            'link' => 'plugin:support/controller:support/action:index',
-            // Status : activated or not (0 or 1)
-            'status' => 1,
-            // Link class
-            'class' => 'support',
-            // Roles which link is visible. Empty string means visible to all
-            'visibility_roles' => '["1","2","3"]',
-        ]));
+        // TO IMPLEMENT
     }
 
 /**
@@ -84,36 +58,7 @@ class PluginActivation
  */
     public function onDeactivation(&$controller)
     {
-        // ACL: remove ACOs with permissions
-        // $controller->Croogo->removeAco('Example'); // ExampleController ACO and it's actions will be removed
-
-        /*$Links = ClassRegistry::init('Menus.Link');
-        // Main menu: delete Example link
-        $link = $Links->find('first', [
-            'joins' => [
-                [
-                    'table' => 'menus',
-                    'alias' => 'JoinMenu',
-                    'conditions' => [
-                        'JoinMenu.alias' => 'main',
-                    ],
-                ],
-            ],
-            'conditions' => [
-                'Link.link' => 'plugin:support/controller:support/action:index',
-            ],
-        ]);
-        if (empty($link)) {
-            return;
-        }
-        $Links->Behaviors->attach('Tree', [
-            'scope' => [
-                'Link.menu_id' => $link['Link']['menu_id'],
-            ],
-        ]);
-        if (isset($link['Link']['id'])) {
-            $Links->delete($link['Link']['id']);
-        }*/
+        // TO IMPLEMENT
     }
 
 }
