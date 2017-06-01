@@ -19,3 +19,9 @@ OR you run in terminal.
 ```
 bin/cake plugin load Support
 ```
+
+Migrations: 
+
+```
+bin/cake migrations migrate --plugin Support
+```
