@@ -1,20 +1,23 @@
 <?php
-/**
-  * @var \App\View\AppView $this
-  */
+
+$this->extend('Croogo/Core./Common/admin_view');
+
+$this->Breadcrumbs
+    ->add(__d('croogo', 'Support'), ['action' => 'index']);
+
+    $this->Breadcrumbs->add($support->name, $this->request->here());
+
+$this->append('action-buttons');
+    echo $this->Croogo->adminAction(__('Edit Support'), ['action' => 'edit', $support->id]);
+    echo $this->Croogo->adminAction(__('Delete Support'), ['action' => 'delete', $support->id], ['confirm' => __('Are you sure you want to delete # {0}?', $support->id)]);
+    echo $this->Croogo->adminAction(__('List Support'), ['action' => 'index']);
+    echo $this->Croogo->adminAction(__('New Support'), ['action' => 'add']);
+$this->end();
+
+$this->append('main');
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Support'), ['action' => 'edit', $support->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Support'), ['action' => 'delete', $support->id], ['confirm' => __('Are you sure you want to delete # {0}?', $support->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Support'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Support'), ['action' => 'add']) ?> </li>
-    </ul>
-</nav>
-<div class="support view large-9 medium-8 columns content">
-    <h3><?= h($support->name) ?></h3>
-    <table class="vertical-table">
+<div class="support view large-9 medium-8 columns">
+    <table class="table vertical-table">
         <tr>
             <th scope="row"><?= __('Name') ?></th>
             <td><?= h($support->name) ?></td>
@@ -48,8 +51,12 @@
             <td><?= h($support->deadline) ?></td>
         </tr>
     </table>
-    <div class="row">
-        <h4><?= __('Description') ?></h4>
+    <div>
+        <label>
+            <strong><?= __('Description') ?></strong>
+        </label>
         <?= $this->Text->autoParagraph(h($support->description)); ?>
     </div>
 </div>
+<?php
+$this->end();

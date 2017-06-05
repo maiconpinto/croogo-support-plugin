@@ -36,7 +36,10 @@ class PluginActivation
  */
     public function onActivation(&$controller)
     {
-        // TO IMPLEMENT
+        $Acos = TableRegistry::get('Croogo/Acl.Acos');
+        $Acos->addAco('Support/Admin/Support/index'); // ExampleController::admin_index()
+        $Acos->addAco('Support/Support/index', ['registered', 'public']); // ExampleController::index()
+
     }
 
 /**
@@ -58,7 +61,9 @@ class PluginActivation
  */
     public function onDeactivation(&$controller)
     {
-        // TO IMPLEMENT
+        $Acos = TableRegistry::get('Croogo/Acl.Acos');
+        $Acos->removeAco('Support'); // Plugin ACOs and it's actions will be removed
+
     }
 
 }

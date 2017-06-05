@@ -3,25 +3,37 @@
   * @var \App\View\AppView $this
   */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Support'), ['action' => 'index']) ?></li>
-    </ul>
-</nav>
-<div class="support form large-9 medium-8 columns content">
-    <?= $this->Form->create($support) ?>
-    <fieldset>
-        <legend><?= __('Add Support') ?></legend>
-        <?php
-            echo $this->Form->control('name');
-            echo $this->Form->control('description');
-            echo $this->Form->control('status');
-            echo $this->Form->control('priority');
-            echo $this->Form->control('deadline');
-            echo $this->Form->control('cost');
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
-</div>
+<?php
+
+$this->extend('Croogo/Core./Common/admin_edit');
+
+$this->Breadcrumbs->add(__('Support'), ['action' => 'index']);
+$action = $this->request->param('action');
+
+if ($action == 'edit'):
+    $this->Breadcrumbs->add($support->name);
+else:
+    $this->Breadcrumbs->add(__d('croogo', 'Add'), $this->request->here());
+endif;
+
+$this->append('action-buttons');
+    echo $this->Croogo->adminAction(__('List Support'),
+        ['action' => 'index']
+    );
+$this->end();
+$this->append('form-start', $this->Form->create($support));
+
+$this->append('tab-heading');
+    echo $this->Croogo->adminTab('Support', '#support');
+$this->end();
+
+$this->append('tab-content');
+    echo $this->Html->tabStart('support');
+        echo $this->Form->input('name');
+        echo $this->Form->input('description');
+        echo $this->Form->input('status');
+        echo $this->Form->input('priority');
+        echo $this->Form->input('deadline');
+        echo $this->Form->input('cost');
+    echo $this->Html->tabEnd();
+$this->end();
