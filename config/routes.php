@@ -1,12 +1,14 @@
 <?php
+
 use Cake\Routing\RouteBuilder;
 use Cake\Routing\Router;
-use Cake\Routing\Route\DashedRoute;
 
-Router::plugin(
-    'Support',
-    ['path' => '/support'],
-    function (RouteBuilder $routes) {
-        $routes->fallbacks(DashedRoute::class);
-    }
-);
+Router::plugin('Support', ['path' => '/'], function (RouteBuilder $route) {
+    $route->prefix('admin', function (RouteBuilder $route) {
+        $route->extensions(['json']);
+
+        $route->scope('/support', [], function (RouteBuilder $route) {
+            $route->fallbacks();
+        });
+    });
+});
